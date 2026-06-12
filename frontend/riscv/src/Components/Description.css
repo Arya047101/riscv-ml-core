@@ -1,0 +1,60 @@
+.description-container {
+  flex: 1;
+
+  padding-top: 5.25rem;
+
+  position: relative;
+
+  animation: fadeUp 1s ease-out;
+}
+
+.description-container::before {
+  content: "";
+
+  position: absolute;
+
+  width: 320px;
+  height: 320px;
+
+  top: -40px;
+  right: -80px;
+
+  background: radial-gradient(
+    circle,
+    rgba(15, 123, 138, 0.08),
+    transparent 70%
+  );
+
+  pointer-events: none;
+}
+
+.description-text {
+  max-width: 520px;
+
+  color: #374151;
+
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
+  line-height: 2;
+
+  letter-spacing: -0.015em;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.typewriter {
+    font-weight: 700;
+    color: #374151;
+}
