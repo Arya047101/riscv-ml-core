@@ -1,0 +1,21 @@
+Instruction
+Opcode
+R-Type
+0110011
+I Arithmetic
+0010011
+Load
+0000011
+Store
+0100011
+Branch
+1100011
+JAL
+1101111
+JALR
+1100111
+LUI
+0110111
+AUIPC
+0010111
+

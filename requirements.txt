@@ -1,2 +1,0 @@
-pip install pillow numpy 
-npm install cors express 
