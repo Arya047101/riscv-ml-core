@@ -18,9 +18,9 @@ localparam AUIPAC = 1101111;
 
 always@(posedge clk) begin 
     if(!rst) begin 
-        //reset 
+        aluOpcode <= 0;
     end 
     else begin 
-        //logic 
+        
     end 
 endmodule 

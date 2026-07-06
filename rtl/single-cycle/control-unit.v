@@ -9,77 +9,89 @@ module controlUnit (
     output reg   ALUSrc, 
     output reg   Branch, 
     output reg   Jump,
-    output reg   ALUOpcode
 );
 
-//Instruction Format
-reg opcode = instruction[6:0];
+    wire [6:0] opcode = instruction[6:0];
 
-//Different formats of instructions
-localparam RTYPE  = 0110011;
-localparam ITYPE  = 0010011;
-localparam LOAD   = 0000011;
-localparam STORE  = 0100011;
-localparam BRANCH = 1100011;
-localparam JAL    = 1101111;
-localparam JALR   = 1100111;
-localparam LUI    = 1101111;
-localparam AUIPAC = 1101111;
+    localparam RTYPE  = 7'b0110011;
+    localparam ITYPE  = 7'b0010011;
+    localparam LOAD   = 7'b0000011;
+    localparam STORE  = 7'b0100011;
+    localparam BRANCH = 7'b1100011;
+    localparam JAL    = 7'b1101111;
+    localparam JALR   = 7'b1100111;
+    localparam LUI    = 7'b0110111;
+    localparam AUIPC  = 7'b0010111;
 
-always@(posedge clk) begin 
-    if(!rst) begin 
-        RegWrite <= 0;
-        MemRead <= 0;
-        MemWrite <= 0;
-        MemtoReg <= 0;
-        ALUSrc <= 0;
-        Branch <= 0;
-        Jump <= 0;
-    end
+    always @(posedge clk) begin 
+        if (!rst) begin 
+            RegWrite <= 0;
+             MemRead <= 0; 
+             MemWrite <= 0; 
+             MemtoReg <= 0;
+             ALUSrc <= 0; 
+             Branch <= 0; 
+             Jump <= 0; 
+        end 
+        
+        else begin 
+            RegWrite <= 0; 
+            MemRead <= 0; 
+            MemWrite <= 0; 
+            MemtoReg <= 0;
+            ALUSrc <= 0; 
+            Branch <= 0; 
+            Jump <= 0; 
 
-    else begin 
-        case(opcode)
-            RTYPE: begin 
-                //logic
-            end
+            case(opcode)
+                RTYPE:  begin 
+                    RegWrite <= 1; 
+                end
 
-            ITYPE: begin
-                //logic
-            end
+                ITYPE:  begin 
+                    RegWrite <= 1; 
+                    ALUSrc <= 1; 
+                end
 
-            LOAD: begin
-                //logic
-            end
+                LOAD:   begin 
+                    RegWrite <= 1; 
+                    ALUSrc <= 1; 
+                    MemRead <= 1; 
+                    MemtoReg <= 1; 
+                end
 
-            STORE: begin 
-                //logic
-            end
+                STORE:  begin 
+                    ALUSrc <= 1; 
+                    MemWrite <= 1; 
+                end
 
-            BRANCH: begin 
-                //logic
-            end
+                BRANCH: begin 
+                    Branch <= 1; 
+                    ALUOpcode <= 2'b01; 
+                end
 
-            JAL: begin 
-                //logic
-            end 
-            
-            JALR: begin 
-                //logic
-            end 
+                JAL:    begin 
+                    RegWrite <= 1; 
+                    Jump <= 1; 
+                end
 
-            LUI: begin 
-                //logic 
-            end
+                JALR:   begin 
+                    RegWrite <= 1; 
+                    ALUSrc <= 1; 
+                    Jump <= 1; 
+                end
 
-            AUIPAC: begin 
-                //logic 
-            end 
+                LUI:    begin 
+                    RegWrite <= 1; 
+                end
 
-            default: begin 
-                //logic
-            end
-
-    end
-end 
-
-endmodule 
+                AUIPC:  begin 
+                    RegWrite <= 1; 
+                    ALUSrc <= 1; 
+                end
+                
+                default: begin end
+            endcase
+        end
+    end 
+endmodule
